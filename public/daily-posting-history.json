@@ -1,0 +1,220 @@
+{
+  "history": [
+    {
+      "date": "2026-02-03",
+      "startTime": "2026-02-03T00:30:01.974Z",
+      "endTime": "2026-02-03T09:02:29.307Z",
+      "totalAccounts": 40,
+      "groups": [
+        "19k",
+        "18k",
+        "9k",
+        "11k",
+        "12k"
+      ]
+    },
+    {
+      "date": "2026-02-01",
+      "startTime": "2026-02-01T03:36:42.183Z",
+      "endTime": "2026-02-01T05:32:09.313Z",
+      "totalAccounts": 61,
+      "groups": [
+        "19k",
+        "9k",
+        "18k"
+      ]
+    },
+    {
+      "date": "2026-01-28",
+      "startTime": "2026-01-28T12:32:29.744Z",
+      "endTime": "2026-01-28T14:56:17.653Z",
+      "totalAccounts": 76,
+      "groups": [
+        "10k",
+        "3k",
+        "19k"
+      ]
+    },
+    {
+      "date": "2026-01-27",
+      "startTime": "2026-01-27T03:46:57.473Z",
+      "endTime": "2026-01-27T07:13:20.750Z",
+      "totalAccounts": 118,
+      "groups": [
+        "3k",
+        "custom-Grupo 20k"
+      ]
+    },
+    {
+      "date": "2026-01-26",
+      "startTime": "2026-01-26T06:47:24.527Z",
+      "endTime": "2026-01-26T06:47:55.802Z",
+      "totalAccounts": 9,
+      "groups": [
+        "3k"
+      ]
+    },
+    {
+      "date": "2026-01-24",
+      "startTime": "2026-01-24T12:16:48.930Z",
+      "endTime": "2026-01-24T13:22:31.860Z",
+      "totalAccounts": 98,
+      "groups": [
+        "3k",
+        "5k"
+      ]
+    },
+    {
+      "date": "2026-01-23",
+      "startTime": "2026-01-23T02:52:46.703Z",
+      "endTime": "2026-01-23T07:50:33.518Z",
+      "totalAccounts": 53,
+      "groups": [
+        "4k"
+      ]
+    },
+    {
+      "date": "2026-01-20",
+      "startTime": "2026-01-20T00:16:19.207Z",
+      "endTime": "2026-01-20T04:31:21.650Z",
+      "totalAccounts": 200,
+      "groups": [
+        "custom-Grupo 20k"
+      ]
+    },
+    {
+      "date": "2026-01-19",
+      "startTime": "2026-01-19T08:55:53.319Z",
+      "endTime": "2026-01-19T11:58:28.600Z",
+      "totalAccounts": 268,
+      "groups": [
+        "9k",
+        "2k",
+        "4k"
+      ]
+    },
+    {
+      "date": "2026-01-18",
+      "startTime": "2026-01-18T11:49:04.072Z",
+      "endTime": "2026-01-18T14:09:15.764Z",
+      "totalAccounts": 80,
+      "groups": [
+        "custom-grupo 20k"
+      ]
+    },
+    {
+      "date": "2026-01-17",
+      "startTime": "2026-01-17T00:39:59.361Z",
+      "endTime": "2026-01-17T09:11:34.506Z",
+      "totalAccounts": 61,
+      "groups": [
+        "17k"
+      ]
+    },
+    {
+      "date": "2026-01-15",
+      "startTime": "2026-01-15T05:41:10.860Z",
+      "endTime": "2026-01-15T07:17:16.791Z",
+      "totalAccounts": 61,
+      "groups": [
+        "17k"
+      ]
+    },
+    {
+      "date": "2025-12-16",
+      "startTime": "2025-12-16T09:12:15.080Z",
+      "endTime": "2025-12-16T09:33:52.296Z",
+      "totalAccounts": 50,
+      "groups": [
+        "inicio"
+      ]
+    },
+    {
+      "date": "2025-11-27",
+      "startTime": "2025-11-27T16:05:44.244Z",
+      "endTime": "2025-11-27T16:37:41.880Z",
+      "totalAccounts": 28,
+      "groups": [
+        "inicio"
+      ]
+    },
+    {
+      "date": "2025-11-19",
+      "startTime": "2025-11-19T15:10:47.475Z",
+      "endTime": "2025-11-19T15:10:56.597Z",
+      "totalAccounts": 58
+    },
+    {
+      "date": "2025-11-18",
+      "startTime": "2025-11-18T09:40:17.265Z",
+      "endTime": "2025-11-18T09:40:28.873Z",
+      "totalAccounts": 59
+    },
+    {
+      "date": "2025-11-16",
+      "startTime": "2025-11-16T16:10:28.036Z",
+      "endTime": "2025-11-16T17:28:29.822Z",
+      "totalAccounts": 60
+    },
+    {
+      "date": "2025-11-15",
+      "startTime": "2025-11-15T08:36:19.297Z",
+      "endTime": "2025-11-15T08:36:32.068Z",
+      "totalAccounts": 61
+    },
+    {
+      "date": "2025-11-14",
+      "startTime": "2025-11-14T05:36:05.982Z",
+      "endTime": "2025-11-14T05:36:21.534Z",
+      "totalAccounts": 61
+    },
+    {
+      "date": "2025-11-12",
+      "startTime": "2025-11-12T19:09:05.644Z",
+      "endTime": "2025-11-12T19:09:15.999Z",
+      "totalAccounts": 63
+    },
+    {
+      "date": "2025-11-11",
+      "startTime": "2025-11-11T12:09:47.941Z",
+      "endTime": "2025-11-11T12:09:56.329Z",
+      "totalAccounts": 65
+    },
+    {
+      "date": "2025-11-09",
+      "startTime": "2025-11-09T14:41:25.730Z",
+      "endTime": "2025-11-09T15:48:46.783Z",
+      "totalAccounts": 65
+    },
+    {
+      "date": "2025-11-06",
+      "startTime": "2025-11-06T16:13:44.161Z",
+      "endTime": "2025-11-06T17:28:28.890Z",
+      "totalAccounts": 67
+    },
+    {
+      "date": "2025-11-05",
+      "startTime": "2025-11-05T15:08:52.843Z",
+      "endTime": "2025-11-05T16:38:07.197Z",
+      "totalAccounts": 67
+    },
+    {
+      "date": "2025-11-04",
+      "startTime": "2025-11-04T15:58:55.426Z",
+      "endTime": "2025-11-04T15:59:08.909Z",
+      "totalAccounts": 67
+    },
+    {
+      "date": "2025-11-03",
+      "startTime": "2025-11-03T11:41:43.912Z",
+      "endTime": "2025-11-03T13:17:15.297Z",
+      "totalAccounts": 67
+    },
+    {
+      "date": "2025-11-02",
+      "startTime": "2025-11-02T10:21:26.810Z",
+      "endTime": "2025-11-02T11:53:44.031Z",
+      "totalAccounts": 67
+    }
+  ]
+}

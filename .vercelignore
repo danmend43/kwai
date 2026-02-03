@@ -1,0 +1,15 @@
+# Ignore build artifacts and local files when uploading to Vercel
+.next
+node_modules
+.vercel
+.vscode
+*.env
+.DS_Store
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+coverage
+*.log
+dist
+/.idea
+/.env*

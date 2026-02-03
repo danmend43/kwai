@@ -1,0 +1,13 @@
+node_modules/
+public/css/styles.css
+.env
+*.log
+.DS_Store
+auth-config.json
+# Next.js build output
+.next
+.next/
+/.next
+
+
+
