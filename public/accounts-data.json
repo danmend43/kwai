@@ -616,7 +616,7 @@
       "cel": "Cel 500",
       "name": "Juan Pablo Blakemore",
       "hidden": false,
-      "reserved": false
+      "reserved": true
     },
     {
       "id": "57",
@@ -1677,7 +1677,7 @@
       "name": "Ferrau Margolis",
       "note": "",
       "hidden": false,
-      "reserved": true
+      "reserved": false
     },
     {
       "id": "147",
@@ -6612,5 +6612,5 @@
       "reserved": false
     }
   ],
-  "lastUpdated": "2026-02-04T15:27:24.558Z"
+  "lastUpdated": "2026-02-04T18:07:05.408Z"
 }
