@@ -1903,7 +1903,53 @@
         }
       },
       "calendarMarked": true
+    },
+    "2026-02-10": {
+      "groups": {
+        "19k": {
+          "selected": [
+            "eugenbrunault@gmail.com",
+            "terriblegoldie@gmail.com",
+            "nassimhead@gmail.com",
+            "abigaildalbeck@gmail.com",
+            "rosiehollner@gmail.com",
+            "ceciliostokes@gmail.com",
+            "izaueasawyer@gmail.com",
+            "shakiraclosey@gmail.com",
+            "standfranco552@gmail.com",
+            "vickingsby@gmail.com"
+          ],
+          "startTime": "2026-02-10T16:20:18.503Z",
+          "endTime": "2026-02-10T16:20:55.810Z"
+        },
+        "11k": {
+          "selected": [
+            "exurobertmiller563@gmail.com"
+          ],
+          "startTime": "2026-02-10T16:21:10.727Z",
+          "endTime": "2026-02-10T16:21:10.727Z"
+        },
+        "3k": {
+          "selected": [
+            "ivynidthe@via.tokyo.jp"
+          ],
+          "startTime": "2026-02-10T16:21:33.578Z",
+          "endTime": "2026-02-10T16:21:33.578Z"
+        }
+      },
+      "calendarMarked": true
+    },
+    "2026-02-13": {
+      "groups": {
+        "15k": {
+          "selected": [
+            "990702441"
+          ],
+          "startTime": "2026-02-13T01:43:18.672Z"
+        }
+      },
+      "calendarMarked": false
     }
   },
-  "lastUpdated": "2026-02-04T15:04:24.863Z"
+  "lastUpdated": "2026-02-13T01:43:18.810Z"
 }
