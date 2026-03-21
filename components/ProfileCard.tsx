@@ -18,6 +18,7 @@ interface ProfileCardProps {
   onCheckSequence?: () => void
   accountGoals?: { [key: string]: number }
   onSetGoal?: (identifier: string) => void
+  onRemove?: (profileData: ProfileData) => void
 }
 
 // Função para limpar o nome, removendo " (@username) on Kwai"
@@ -78,7 +79,7 @@ const calculateDaysRemaining = (currentFollowers: number, goal: number): string 
   }
 }
 
-export default function ProfileCard({ profileData, onCheckSequence, accountGoals = {}, onSetGoal }: ProfileCardProps) {
+export default function ProfileCard({ profileData, onCheckSequence, accountGoals = {}, onSetGoal, onRemove }: ProfileCardProps) {
   const today = typeof window !== 'undefined' ? new Date().toISOString().split('T')[0] : ''
   const lastCheck = typeof window !== 'undefined' ? localStorage.getItem(`check_${profileData.url}`) : null
   const isCheckedToday = lastCheck === today
@@ -135,6 +136,22 @@ export default function ProfileCard({ profileData, onCheckSequence, accountGoals
               </div>
             )}
           </div>
+          {/* Botão de Remover */}
+          {onRemove && (
+            <button
+              onClick={() => {
+                if (confirm(`Tem certeza que deseja remover esta conta?\n${displayName} (${profileData.email || profileData.url})`)) {
+                  onRemove(profileData)
+                }
+              }}
+              className="p-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-600 hover:text-red-700 transition-colors flex-shrink-0"
+              title="Remover conta"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Estatísticas */}

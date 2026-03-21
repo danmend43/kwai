@@ -20,7 +20,7 @@ interface ProfileData {
   likes: string
   bio: string
   verified: boolean
-  url: string
+  url?: string
   email?: string
   password?: string
   name?: string
@@ -40,75 +40,6 @@ interface AccountData {
   reserved?: boolean // Conta reservada (separada)
 }
 
-const defaultUrls = [
-  'https://k.kwai.com/u/@sonicrockeiro/CtsFOYGe',
-  'https://k.kwai.com/u/@denos887/CkIucBsM',
-  'https://k.kwai.com/u/@ttailss/wshiC0Yp',
-  'https://k.kwai.com/u/@crafa495/tXCUibtR',
-  'https://k.kwai.com/u/@evfeb293/bstC8nm3',
-  'https://k.kwai.com/u/@leofood680/HuM8Csok',
-  'https://k.kwai.com/u/@spideria/z9wxCPWx',
-  'https://k.kwai.com/u/@spiderman014/2KzOsCvR',
-  'https://k.kwai.com/u/@sonicia543/XNuCUX4z',
-  'https://k.kwai.com/u/@pokemonia/FJCEtIqj',
-  'https://k.kwai.com/u/@sonic263/9FIVtCK2',
-  'https://k.kwai.com/u/@danielmend766/3wCyqXoF',
-  'https://k.kwai.com/u/@subra552/z7EZquCl',
-  'https://k.kwai.com/u/@subra735/1wwCWefi',
-  'https://k.kwai.com/u/@hfhjbgj/j6uGFuCG',
-  'https://k.kwai.com/u/@hfnvk/HuNG6ZC2',
-  'https://k.kwai.com/u/@myclerobert752/eax7CCwP',
-  'https://k.kwai.com/u/@myclerobert117/UuWCIIvL',
-  'https://k.kwai.com/u/@myclerobert031/uC1Y4Tk4',
-  'https://k.kwai.com/u/@farabi853/wNkyeTCh',
-  'https://k.kwai.com/u/@meyun863/CPuta9cC',
-  'https://k.kwai.com/u/@milonahmedkobi/CwoMxUgc',
-  'https://k.kwai.com/u/@milonahmedkala/lBtvpJCL',
-  'https://k.kwai.com/u/@tamimahmed253/GRCv2if0',
-  'https://k.kwai.com/u/@foysal978/bQmnVvCh',
-  'https://k.kwai.com/u/@ranaahmedshuvo790/fCwiConC',
-  'https://k.kwai.com/u/@emonahmedbappi/FCs8kSMM',
-  'https://k.kwai.com/u/@tamimahmednaim/tFC9DT2g',
-  'https://k.kwai.com/u/@ranaahmednaim/zwuNlCv8',
-  'https://k.kwai.com/u/@firozaheadmasu/toZrACmS',
-  'https://k.kwai.com/u/@tamimahmedmahi/tjQHJ0Cc',
-  'https://k.kwai.com/u/@sabbirahmedmaf/vMpvyCeG',
-  'https://k.kwai.com/u/@bajiyahmedshuv/L3ubrCvx',
-  'https://k.kwai.com/u/@bajiyahmedbapp/CwFNrvHp',
-  'https://k.kwai.com/u/@lemonahmed134/Dhu0cC3q',
-  'https://k.kwai.com/u/@kingestonedmon/hNuCQgfT',
-  'https://k.kwai.com/u/@laurabrooklynn204/5uCQtpAN',
-  'https://k.kwai.com/u/@maevparkinson/7CCvLgdR',
-  'https://k.kwai.com/u/@albertocalvinz/nv1wC3Wf',
-  'https://k.kwai.com/u/@lilia845/CUePGjv5',
-  'https://k.kwai.com/u/@myclerobert/lBCB5LtH',
-  'https://k.kwai.com/u/@nicksantos761/TCaSAw8O',
-  'https://k.kwai.com/u/@mkzimsantsnder/CzCmudUC',
-  'https://k.kwai.com/u/@jansenfloor/cVsCZCD3',
-  'https://k.kwai.com/u/@floorjansen/2esChvzz',
-  'https://k.kwai.com/u/@bvxydhcx/rgK6WvCJ',
-  'https://k.kwai.com/u/@gsfvxkvgkb/rQswQ6C6',
-  'https://k.kwai.com/u/@mbcyfanbxd/vRxJvzCw',
-  'https://k.kwai.com/u/@bvxfssiyfkbc/WswwCUFa',
-  'https://k.kwai.com/u/@mbcjhgjjczf/eCwf4lCM',
-  'https://k.kwai.com/u/@jvjnsshwmvs/dcCsL1ce',
-  'https://k.kwai.com/u/@nhkvsujvks/sS9iCru4',
-  'https://k.kwai.com/u/@dert834/CoaFvAaq',
-  'https://k.kwai.com/u/@idcqp088/yGuMCZU1',
-  'https://k.kwai.com/u/@lvdok089/wt78CaIT',
-  'https://kwai-video.com/u/@efuzm973/kvLgwvCl',
-  'https://k.kwai.com/u/@kaik820/C2tAyPxk',
-  'https://k.kwai.com/u/@marc656/lterHCbP',
-  'https://k.kwai.com/u/@veig543/5uCKCYsX',
-  'https://k.kwai.com/u/@xeig256/snC8flJA',
-  'https://k.kwai.com/u/@sand174/TpqCSt6f',
-  'https://k.kwai.com/u/@gelio068/hGjspCuK',
-  'https://k.kwai.com/u/@lira167/CeA1Ewsu',
-  'https://k.kwai.com/u/@dxkio885/CuRyIkP6',
-  'https://k.kwai.com/u/@pqvho150/KsCsasbF',
-  'https://k.kwai.com/u/@ztori021/Crkaup8N',
-  'https://k.kwai.com/u/@luddds/bCvtRTeI',
-]
 
 const accountData = [
   { email: 'sonicrockeiro@gmail.com', password: 'kwai202022', name: 'sonicrockeiro', followers: '4.5K', verified: true },
@@ -181,42 +112,11 @@ const accountData = [
 ]
 
 export default function Home() {
-  // Garantir que as URLs estejam sempre atualizadas
-  const [urls, setUrls] = useState<string[]>(() => {
-    // Sempre usar as URLs padrão atualizadas
-    const updatedUrls = defaultUrls.map(url => {
-      // Atualizar URLs antigas para os formatos corretos
-      if (url.includes('www.kwai.com/@efuzm973')) {
-        return 'https://kwai-video.com/u/@efuzm973/kvLgwvCl'
-      }
-      if (url.includes('www.kwai.com/@kaik820')) {
-        return 'https://k.kwai.com/u/@kaik820/C2tAyPxk'
-      }
-      return url
-    })
-    return updatedUrls
-  })
-  
-  // Atualizar URLs quando componente montar para garantir correção
-  useEffect(() => {
-    setUrls(prevUrls => {
-      const updated = prevUrls.map(url => {
-        if (url.includes('www.kwai.com/@efuzm973')) {
-          return 'https://kwai-video.com/u/@efuzm973/kvLgwvCl'
-        }
-        if (url.includes('www.kwai.com/@kaik820')) {
-          return 'https://k.kwai.com/u/@kaik820/C2tAyPxk'
-        }
-        return url
-      })
-      return updated
-    })
-  }, [])
   const [profiles, setProfiles] = useState<ProfileData[]>([])
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState({ current: 0, total: 0 })
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'followers' | 'accounts' | 'urls' | 'reserved-accounts' | 'history' | 'calendar' | 'groups' | 'postagem' | 'catalog-config' | 'config' | 'valores'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'followers' | 'accounts' | 'reserved-accounts' | 'history' | 'calendar' | 'groups' | 'postagem' | 'catalog-config' | 'config' | 'valores'>('dashboard')
   const [catalogConfig, setCatalogConfig] = useState({ 
     selectedGroups: [] as string[]
   })
@@ -228,9 +128,6 @@ export default function Home() {
   const [sequences, setSequences] = useState<{ [key: string]: number }>({})
   const [markedDays, setMarkedDays] = useState<{ [key: string]: boolean }>({})
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-  const [editingUrlIndex, setEditingUrlIndex] = useState<number | null>(null)
-  const [editingUrl, setEditingUrl] = useState<string>('')
-  const [newUrl, setNewUrl] = useState<string>('')
   const [showAddAccount, setShowAddAccount] = useState(false)
   const [selectedReservedAccount, setSelectedReservedAccount] = useState<AccountData | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -253,8 +150,6 @@ export default function Home() {
   const [editingAccountIndex, setEditingAccountIndex] = useState<number | null>(null)
   const [valores, setValores] = useState<{ [key: string]: number }>({}) // { '1k': 10, '2k': 20, etc }
   const [taxa, setTaxa] = useState<number>(15.98) // Taxa em porcentagem
-  const [urlsOriginal, setUrlsOriginal] = useState<string[]>([]) // URLs originais para reiniciar
-  const [urlsProcessed, setUrlsProcessed] = useState<Set<number>>(new Set()) // Índices das URLs processadas
   const [customGroups, setCustomGroups] = useState<{ [groupName: string]: { emails: string[], coverImage?: string, goal?: number } }>({}) // { "meta": { emails: ["email1"], coverImage: "url", goal: 100000 } }
   const [accountGroups, setAccountGroups] = useState<{ [email: string]: string }>({}) // { "email": "nomeDoGrupo" }
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false)
@@ -271,24 +166,6 @@ export default function Home() {
   const [showGoalModal, setShowGoalModal] = useState(false) // Modal para definir meta
   const [selectedAccountIdentifier, setSelectedAccountIdentifier] = useState<string | null>(null) // Identificador único da conta (email, URL ou username)
   const [goalInput, setGoalInput] = useState<string>('') // Input da meta (em K)
-
-  // Salvar URLs no arquivo
-  const saveUrls = async (urlsToSave: string[]) => {
-    try {
-      const response = await fetch('/api/urls', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ urls: urlsToSave }),
-      })
-      if (response.ok) {
-        console.log('URLs salvas com sucesso')
-      }
-    } catch (e) {
-      console.error('Erro ao salvar URLs:', e)
-    }
-  }
 
   // Carregar última análise do histórico ao iniciar
   useEffect(() => {
@@ -370,39 +247,6 @@ export default function Home() {
     }
 
     loadCalendarData()
-
-    // Carregar URLs salvas
-    const loadSavedUrls = async () => {
-      try {
-        const response = await fetch('/api/urls')
-        if (response.ok) {
-          const data = await response.json()
-          if (data.urls && data.urls.length > 0) {
-            setUrls(data.urls)
-            setUrlsOriginal(data.urls) // Salvar URLs originais
-            console.log('URLs carregadas do arquivo:', data.urls.length)
-          } else {
-            // Se não há URLs salvas, salvar as padrão
-            const initialUrls = defaultUrls.map(url => {
-              if (url.includes('www.kwai.com/@efuzm973')) {
-                return 'https://kwai-video.com/u/@efuzm973/kvLgwvCl'
-              }
-              if (url.includes('www.kwai.com/@kaik820')) {
-                return 'https://k.kwai.com/u/@kaik820/C2tAyPxk'
-              }
-              return url
-            })
-            setUrls(initialUrls)
-            setUrlsOriginal(initialUrls) // Salvar URLs originais
-            saveUrls(initialUrls)
-          }
-        }
-      } catch (e) {
-        console.error('Erro ao carregar URLs:', e)
-      }
-    }
-
-    loadSavedUrls()
 
     // Carregar lista de históricos
     const loadHistoryFiles = async () => {
@@ -1030,65 +874,6 @@ export default function Home() {
     }
   }, [sequences, markedDays])
 
-  // Adicionar nova URL
-  const handleAddUrl = () => {
-    if (!newUrl.trim()) {
-      setError('URL não pode estar vazia')
-      return
-    }
-    const updatedUrls = [...urls, newUrl.trim()]
-    setUrls(updatedUrls)
-    setUrlsOriginal(updatedUrls) // Atualizar URLs originais também
-    setNewUrl('')
-    saveUrls(updatedUrls)
-    setError(null)
-  }
-
-  // Editar URL
-  const handleStartEdit = (index: number) => {
-    setEditingUrlIndex(index)
-    setEditingUrl(urls[index])
-  }
-
-  const handleSaveEdit = () => {
-    if (editingUrlIndex === null || !editingUrl.trim()) {
-      setError('URL não pode estar vazia')
-      return
-    }
-    const updatedUrls = [...urls]
-    updatedUrls[editingUrlIndex] = editingUrl.trim()
-    setUrls(updatedUrls)
-    setEditingUrlIndex(null)
-    setEditingUrl('')
-    saveUrls(updatedUrls)
-    setError(null)
-  }
-
-  const handleCancelEdit = () => {
-    setEditingUrlIndex(null)
-    setEditingUrl('')
-  }
-
-  // Remover URL e também da conta correspondente
-  const handleRemoveUrl = (index: number) => {
-    const urlToRemove = urls[index]
-    
-    // Extrair username da URL
-    const usernameMatch = urlToRemove.match(/@([^\/\?]+)/)
-    const username = usernameMatch ? usernameMatch[1].toLowerCase() : ''
-    
-    // Remover da lista de URLs
-    const updatedUrls = urls.filter((_, i) => i !== index)
-    setUrls(updatedUrls)
-    setUrlsOriginal(updatedUrls) // Atualizar URLs originais também
-    saveUrls(updatedUrls)
-    
-    // Remover perfis relacionados dessa URL
-    setProfiles(profiles.filter(p => p.url !== urlToRemove))
-    
-    console.log(`URL removida: ${urlToRemove}`)
-  }
-
   // Função para converter arquivo para base64
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -1112,6 +897,105 @@ export default function Home() {
       setGroupCoverImage(base64)
     }
     reader.readAsDataURL(file)
+  }
+
+  // Função para remover perfil do dashboard
+  const handleRemoveProfile = async (profileToRemove: ProfileData) => {
+    try {
+      // Encontrar a conta correspondente no array de accounts
+      const accountIndex = accounts.findIndex(acc => {
+        // Tentar match por email primeiro
+        if (profileToRemove.email && acc.email) {
+          return acc.email.toLowerCase() === profileToRemove.email.toLowerCase()
+        }
+        // Tentar match por URL
+        if (profileToRemove.url && acc.url) {
+          const profileUrl = profileToRemove.url.split('?')[0].toLowerCase()
+          const accUrl = acc.url.split('?')[0].toLowerCase()
+          return profileUrl === accUrl
+        }
+        // Tentar match por username na URL com email
+        if (profileToRemove.url) {
+          const usernameMatch = profileToRemove.url.match(/@([^\/\?]+)/)
+          const username = usernameMatch ? usernameMatch[1].toLowerCase() : ''
+          if (username) {
+            const accEmail = acc.email.toLowerCase()
+            const emailUsername = accEmail.split('@')[0]
+            return emailUsername === username || accEmail.includes(username)
+          }
+        }
+        return false
+      })
+
+      if (accountIndex >= 0) {
+        // Remover da lista de contas
+        const updatedAccounts = accounts.filter((_, i) => i !== accountIndex)
+        
+        // Reajustar IDs sequencialmente
+        const reindexedAccounts = updatedAccounts.map((acc, idx) => ({
+          ...acc,
+          id: String(idx + 1)
+        }))
+        
+        setAccounts(reindexedAccounts)
+        
+        // Salvar no servidor
+        await fetch('/api/accounts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accounts: reindexedAccounts }),
+        })
+        
+        console.log('✅ Conta removida das contas:', profileToRemove.email || profileToRemove.url)
+      }
+      
+      // Remover também da lista de perfis do dashboard
+      const updatedProfiles = profiles.filter(p => {
+        // Mesmo critério de match usado acima
+        if (profileToRemove.email && p.email) {
+          return p.email.toLowerCase() !== profileToRemove.email.toLowerCase()
+        }
+        if (profileToRemove.url && p.url) {
+          const profileUrl = profileToRemove.url.split('?')[0].toLowerCase()
+          const pUrl = p.url.split('?')[0].toLowerCase()
+          return profileUrl !== pUrl
+        }
+        return true
+      })
+      
+      setProfiles(updatedProfiles)
+      
+      // IMPORTANTE: Salvar novo histórico sem a conta removida
+      // Isso garante que quando a página for atualizada, a conta não volte
+      try {
+        const profilesForHistory = updatedProfiles.map(p => ({
+          username: p.username || '',
+          name: p.name || p.displayName || '',
+          displayName: p.displayName || p.name || '',
+          avatar: p.avatar || '',
+          followers: p.followers || '',
+          likes: p.likes || '',
+          bio: p.bio || '',
+          verified: p.verified || false,
+          url: p.url || '',
+          email: p.email || ''
+        }))
+        
+        await fetch('/api/save-history', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: profilesForHistory }),
+        })
+        
+        console.log('✅ Novo histórico salvo sem a conta removida')
+      } catch (e) {
+        console.error('Erro ao salvar histórico:', e)
+      }
+      
+    } catch (e) {
+      console.error('Erro ao remover perfil:', e)
+      alert('Erro ao remover conta. Tente novamente.')
+    }
   }
 
   // Função para verificar e atualizar grupos personalizados baseado em seguidores
@@ -1355,25 +1239,31 @@ export default function Home() {
   }
 
   const handleExecute = async () => {
-    if (urls.length === 0) {
-      setError('Adicione pelo menos uma URL')
+    // Pegar URLs das contas cadastradas (excluindo reservadas)
+    const accountUrls = accounts
+      .filter(acc => !acc.reserved && acc.url && acc.url.trim() !== '')
+      .map(acc => acc.url!)
+      .filter(url => url.trim() !== '')
+
+    if (accountUrls.length === 0) {
+      setError('Nenhuma conta com URL cadastrada')
       return
     }
 
     setLoading(true)
     setError(null)
     setProfiles([])
-    setProgress({ current: 0, total: urls.length })
+    setProgress({ current: 0, total: accountUrls.length })
 
     const results: ProfileData[] = []
     const errors: string[] = []
     const executionData: any[] = []
 
-    for (let i = 0; i < urls.length; i++) {
-      const url = urls[i].trim()
+    for (let i = 0; i < accountUrls.length; i++) {
+      const url = accountUrls[i]
       if (!url) continue
 
-      setProgress({ current: i + 1, total: urls.length })
+      setProgress({ current: i + 1, total: accountUrls.length })
 
       try {
         const response = await fetch('/api/analyze', {
@@ -1391,89 +1281,48 @@ export default function Home() {
           continue
         }
 
-                // Buscar dados da conta correspondente (das contas cadastradas)
-                const usernameMatch = url.match(/@([^\/\?]+)/)
-                const username = usernameMatch ? usernameMatch[1].toLowerCase() : ''
-                
-                // Buscar nas contas cadastradas - múltiplas estratégias
-                let account = null
-                
-                // Estratégia 1: Match por URL exata (mais confiável)
-                account = accounts.find(acc => acc.url && acc.url.toLowerCase() === url.toLowerCase())
-                
-                // Estratégia 2: Match por URL normalizada (sem query params)
-                if (!account) {
-                  const urlNormalized = url.split('?')[0].toLowerCase()
-                  account = accounts.find(acc => {
-                    if (!acc.url) return false
-                    const accUrlNormalized = acc.url.split('?')[0].toLowerCase()
-                    return accUrlNormalized === urlNormalized
-                  })
-                }
-                
-                // Estratégia 3: Match por username extraído da URL com email
-                if (!account && username) {
-                  account = accounts.find(acc => {
-                    const accEmail = acc.email.toLowerCase()
-                    const emailUsername = accEmail.split('@')[0]
-                    return emailUsername === username || accEmail.includes(username)
-                  })
-                }
-                
-                // Se encontrou a conta, atualizar com o nome e foto buscados
-                if (account) {
-                  const accountIndex = accounts.findIndex(acc => 
-                    acc.id === account.id || 
-                    acc.email === account.email ||
-                    (acc.url && account.url && acc.url === account.url)
-                  )
-                  
-                  if (accountIndex >= 0) {
-                    const updatedAccounts = [...accounts]
-                    const extractedName = cleanDisplayName(data.displayName || data.username || '')
-                    const extractedAvatar = data.avatar || data.profileImage || ''
-                    
-                    // Só atualizar se houver dados extraídos válidos
-                    if (extractedName && extractedName !== '') {
-                      updatedAccounts[accountIndex] = {
-                        ...updatedAccounts[accountIndex],
-                        name: extractedName
-                      }
-                      setAccounts(updatedAccounts)
-                      
-                      // Salvar no arquivo
-                      try {
-                        await fetch('/api/accounts', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ accounts: updatedAccounts }),
-                        })
-                        console.log(`✅ Conta atualizada: ${account.email} -> Nome: ${extractedName}`)
-                      } catch (e) {
-                        console.error('Erro ao atualizar conta:', e)
-                      }
-                    }
-                  }
-                } else {
-                  console.warn(`⚠️ Conta não encontrada para URL: ${url}`)
-                }
-
-        // Validar dados antes de adicionar
-        if (!data.followers || data.followers === 'N/A' || data.followers === '0' || data.followers === '') {
-          console.warn(`⚠️ [${url}] Seguidores inválidos: ${data.followers}`)
-        }
-        if (!data.likes || data.likes === 'N/A' || data.likes === '0' || data.likes === '') {
-          console.warn(`⚠️ [${url}] Curtidas inválidas: ${data.likes}`)
+        // Buscar dados da conta correspondente
+        const account = accounts.find(acc => acc.url === url)
+        
+        // Se encontrou a conta, atualizar com o nome e foto buscados
+        if (account) {
+          const accountIndex = accounts.findIndex(acc => acc.url === url)
+          
+          if (accountIndex >= 0) {
+            const updatedAccounts = [...accounts]
+            const extractedName = cleanDisplayName(data.displayName || data.username || '')
+            
+            // Só atualizar se houver dados extraídos válidos
+            if (extractedName && extractedName !== '') {
+              updatedAccounts[accountIndex] = {
+                ...updatedAccounts[accountIndex],
+                name: extractedName
+              }
+              setAccounts(updatedAccounts)
+              
+              // Salvar no arquivo
+              try {
+                await fetch('/api/accounts', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ accounts: updatedAccounts }),
+                })
+                console.log(`✅ Conta atualizada: ${account.email} -> Nome: ${extractedName}`)
+              } catch (e) {
+                console.error('Erro ao atualizar conta:', e)
+              }
+            }
+          }
         }
 
-                const profile: ProfileData = {
-                  ...data,
-                  url,
-                  email: account?.email || '',
-                  password: account?.password || '',
-                  name: account?.name || cleanDisplayName(data.displayName || data.username || ''),
-                  sequence: sequences['global'] || 0
-                }
+        const profile: ProfileData = {
+          ...data,
+          url,
+          email: account?.email || '',
+          password: account?.password || '',
+          name: account?.name || cleanDisplayName(data.displayName || data.username || ''),
+          sequence: sequences['global'] || 0
+        }
 
         // Se não tem dados válidos, adicionar aos erros mas não bloquear
         if ((!profile.followers || profile.followers === 'N/A' || profile.followers === '0') &&
@@ -1493,20 +1342,18 @@ export default function Home() {
           verified: profile.verified
         })
         
-        const updatedProfiles = [...results]
-        setProfiles(updatedProfiles)
+        setProfiles([...results])
       } catch (err: any) {
         errors.push(`${url}: ${err.message || 'Erro ao analisar'}`)
       }
 
-      // Pausa maior entre requisições para evitar sobrecarga e dar tempo para carregar
+      // Pausa entre requisições
       await new Promise(resolve => setTimeout(resolve, 2000))
     }
 
-    // Salvar histórico em arquivo (sempre que houver resultados)
+    // Salvar histórico
     if (executionData.length > 0) {
       try {
-        console.log(`💾 Salvando histórico com ${executionData.length} perfis...`)
         const response = await fetch('/api/save-history', {
           method: 'POST',
           headers: {
@@ -1516,24 +1363,17 @@ export default function Home() {
         })
         
         if (response.ok) {
-          const result = await response.json()
-          console.log('✅ Histórico salvo com sucesso:', result.filename || result.message)
+          console.log('✅ Histórico salvo com sucesso')
           
-          // Atualizar dados dos grupos imediatamente após salvar
+          // Atualizar dados dos grupos
           if (results.length > 0) {
             setGroupsProfiles(results)
-            // Verificar e atualizar grupos personalizados baseado em seguidores atuais
             verifyAndUpdateCustomGroups(results)
           }
-        } else {
-          const errorData = await response.json().catch(() => ({ error: 'Erro desconhecido' }))
-          console.error('❌ Erro ao salvar histórico:', errorData.error || 'Erro desconhecido')
         }
-      } catch (e: any) {
-        console.error('❌ Erro ao salvar histórico:', e.message || e)
+      } catch (e) {
+        console.error('❌ Erro ao salvar histórico:', e)
       }
-    } else {
-      console.warn('⚠️ Nenhum dado para salvar no histórico')
     }
 
     if (errors.length > 0 && results.length === 0) {
@@ -1805,7 +1645,6 @@ export default function Home() {
             {[
               { id: 'dashboard', label: 'Dashboard', icon: '📊' },
               { id: 'accounts', label: 'Contas', icon: '🔐' },
-              { id: 'urls', label: 'URLs', icon: '🔗' },
               { id: 'reserved-accounts', label: 'Contas Reservadas', icon: '📦' },
               { id: 'history', label: 'Histórico', icon: '📝' },
               { id: 'calendar', label: 'Calendário', icon: '📅' },
@@ -1856,7 +1695,6 @@ export default function Home() {
             {[
               { id: 'dashboard', label: 'Dashboard', icon: '📊' },
               { id: 'accounts', label: 'Contas', icon: '🔐' },
-              { id: 'urls', label: 'URLs', icon: '🔗' },
               { id: 'reserved-accounts', label: 'Contas Reservadas', icon: '📦' },
               { id: 'history', label: 'Histórico', icon: '📝' },
               { id: 'calendar', label: 'Calendário', icon: '📅' },
@@ -1892,8 +1730,19 @@ export default function Home() {
                   
                   <div className="flex flex-wrap items-center gap-3 mb-6">
                     <span className="badge-new badge-blue">
-                      URLs: <strong>{urls.length}</strong>
+                      Última atualização: <strong>{profiles.length}</strong>
                     </span>
+                    <span className="badge-new badge-green">
+                      Perfis cadastrados: <strong>{accounts.filter(acc => !acc.reserved).length}</strong>
+                    </span>
+                    <span className="badge-new badge-purple">
+                      Perfis reservados: <strong>{accounts.filter(acc => acc.reserved).length}</strong>
+                    </span>
+                    {profiles.length > 0 && accounts.filter(acc => !acc.reserved).length > 0 && (
+                      <span className="badge-new badge-orange">
+                        Diferença: <strong>{profiles.length - accounts.filter(acc => !acc.reserved).length}</strong>
+                      </span>
+                    )}
                     {profiles.length > 0 && (
                       <span className="badge-new badge-purple">
                         Perfis: <strong>{profiles.length}</strong>
@@ -1970,18 +1819,18 @@ export default function Home() {
                   <div className="flex flex-wrap gap-3">
                     <button
                       onClick={handleExecute}
-                      disabled={loading || urls.length === 0}
+                      disabled={loading || accounts.filter(acc => !acc.reserved && acc.url && acc.url.trim() !== '').length === 0}
                       className="btn-new btn-primary-new disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <>
                           <div className="spinner-new"></div>
-                          <span>Processando... {progress.current}/{progress.total}</span>
+                          <span>Analisando... {progress.current}/{progress.total}</span>
                         </>
                       ) : (
                         <>
                           <span>🚀</span>
-                          <span>Executar Análise</span>
+                          <span>Analisar Contas</span>
                         </>
                       )}
                     </button>
@@ -2042,7 +1891,7 @@ export default function Home() {
                           <ProfileCard 
                             key={index} 
                             profileData={profileWithSequence}
-                            onCheckSequence={() => handleCheckSequence(profile.url)}
+                            onCheckSequence={() => handleCheckSequence(profile.url || '')}
                             accountGoals={accountGoals}
                             onSetGoal={(identifier) => {
                               const currentGoal = accountGoals[identifier]
@@ -2050,6 +1899,7 @@ export default function Home() {
                               setGoalInput(currentGoal ? String(currentGoal / 1000) : '')
                               setShowGoalModal(true)
                             }}
+                            onRemove={handleRemoveProfile}
                           />
                         )
                       })}
@@ -2078,7 +1928,7 @@ export default function Home() {
                     </select>
                     <button
                       onClick={handleExecute}
-                      disabled={loading || urls.length === 0}
+                      disabled={loading || accounts.filter(acc => !acc.reserved && acc.url && acc.url.trim() !== '').length === 0}
                       className="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       🔄 Atualizar Dados
@@ -2190,7 +2040,7 @@ export default function Home() {
                     </button>
                     <button
                       onClick={handleExecute}
-                      disabled={loading || urls.length === 0}
+                      disabled={loading || accounts.filter(acc => !acc.reserved && acc.url && acc.url.trim() !== '').length === 0}
                       className="btn-new btn-primary-new disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span>🔄</span>
@@ -2432,16 +2282,7 @@ export default function Home() {
                                 console.error('Erro ao salvar conta:', e)
                               }
                             } else {
-                              // Nova conta - adicionar URL na lista de URLs
-                              if (newAccount.url && !urls.includes(newAccount.url)) {
-                                const updatedUrls = [...urls, newAccount.url]
-                                setUrls(updatedUrls)
-                                setUrlsOriginal(updatedUrls) // Atualizar URLs originais também
-                                await saveUrls(updatedUrls)
-                              }
-                              
-                              // Adicionar conta (nome inicia como "n/a" - será preenchido na análise)
-                              // Salvar a URL no objeto da conta para poder remover depois
+                              // Nova conta - apenas adicionar à lista de contas
                               const updatedAccounts = [...accounts, accountToSave]
                               setAccounts(updatedAccounts)
                               
@@ -2614,26 +2455,6 @@ export default function Home() {
                               if (!urlToRemove) {
                                 const emailUsername = account.email.split('@')[0]
                                 urlToRemove = `https://k.kwai.com/u/@${emailUsername}`
-                              }
-                              
-                              // Remover da lista de URLs
-                              const updatedUrls = urls.filter(url => {
-                                // Verificar se é exatamente a URL ou se corresponde ao email
-                                if (url === urlToRemove) return false
-                                
-                                // Verificar se a URL contém o username do email
-                                const emailUsername = account.email.split('@')[0]
-                                const urlUsername = url.match(/@([^\/\?]+)/)?.[1]?.toLowerCase()
-                                if (urlUsername === emailUsername.toLowerCase()) return false
-                                
-                                return true
-                              })
-                              
-                              // Se removeu alguma URL, atualizar a lista
-                              if (updatedUrls.length < urls.length) {
-                                setUrls(updatedUrls)
-                                setUrlsOriginal(updatedUrls) // Atualizar URLs originais também
-                                await saveUrls(updatedUrls)
                               }
                               
                               // Salvar contas com IDs reajustados
@@ -2837,147 +2658,6 @@ export default function Home() {
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                 />
-              </div>
-            )}
-
-            {/* URLs Tab */}
-            {activeTab === 'urls' && (
-              <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-gray-800">🔗 URLs ({urls.filter((_, idx) => !urlsProcessed.has(idx)).length}/{urls.length})</h2>
-                  <button
-                    onClick={() => {
-                      setUrlsProcessed(new Set())
-                      // Restaurar URLs originais se existirem, senão usar as URLs atuais
-                      if (urlsOriginal.length > 0) {
-                        setUrls(urlsOriginal)
-                      }
-                    }}
-                    className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-all"
-                  >
-                    🔄 Reiniciar
-                  </button>
-                </div>
-
-                {/* Formulário para adicionar nova URL */}
-                <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={newUrl}
-                      onChange={(e) => setNewUrl(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          handleAddUrl()
-                        }
-                      }}
-                      placeholder="Digite a URL do perfil Kwai..."
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    />
-                    <button
-                      onClick={handleAddUrl}
-                      className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all shadow-md"
-                    >
-                      ➕ Adicionar
-                    </button>
-                  </div>
-                  {error && (
-                    <p className="mt-2 text-sm text-red-600">{error}</p>
-                  )}
-                </div>
-
-                {/* Lista de URLs */}
-                <div className="max-h-[calc(100vh-300px)] overflow-y-auto space-y-2">
-                  {urls.map((url, index) => {
-                    // Pular URLs processadas
-                    if (urlsProcessed.has(index)) {
-                      return null
-                    }
-                    
-                    // Buscar perfil correspondente para obter a foto
-                    const profile = profiles.find(p => p.url === url)
-                    const avatar = profile?.avatar || ''
-                    const displayName = cleanDisplayName(profile?.displayName || profile?.name || '')
-                    
-                    // Calcular número real (sem contar as processadas)
-                    const realIndex = urls.slice(0, index).filter((_, idx) => !urlsProcessed.has(idx)).length + 1
-                    
-                    return (
-                      <div
-                        key={index}
-                    onClick={async () => {
-                      // Copiar URL para clipboard
-                      try {
-                        await navigator.clipboard.writeText(url)
-                        // Marcar como processada
-                        setUrlsProcessed(prev => {
-                          const newSet = new Set(prev)
-                          newSet.add(index)
-                          return newSet
-                        })
-                      } catch (e) {
-                        console.error('Erro ao copiar URL:', e)
-                        // Mesmo com erro, marcar como processada
-                        setUrlsProcessed(prev => {
-                          const newSet = new Set(prev)
-                          newSet.add(index)
-                          return newSet
-                        })
-                      }
-                    }}
-                        className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-purple-50 hover:border-purple-300 border border-transparent transition-all cursor-pointer group"
-                      >
-                        <span className="text-sm text-gray-500 w-8">{realIndex}.</span>
-                        
-                        {/* Foto do perfil */}
-                        <div className="flex-shrink-0">
-                          {avatar ? (
-                            <img
-                              src={avatar}
-                              alt={displayName || 'Avatar'}
-                              className="w-10 h-10 rounded-full border-2 border-purple-400 object-cover"
-                              onError={(e) => {
-                                e.currentTarget.style.display = 'none'
-                              }}
-                            />
-                          ) : (
-                            <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-purple-400 flex items-center justify-center">
-                              <span className="text-xs text-purple-600 font-bold">
-                                {(displayName || url.match(/@([^\/]+)/)?.[1] || '?')[0]?.toUpperCase()}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="flex-1 min-w-0">
-                          <span className="text-sm text-gray-700 font-mono break-all block">{url}</span>
-                          {displayName && (
-                            <span className="text-xs text-gray-500 block truncate">{displayName}</span>
-                          )}
-                        </div>
-
-                        {/* Botão de deletar */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation() // Evitar que o clique no botão dispare o onClick do div
-                            if (window.confirm(`Tem certeza que deseja deletar esta URL?\n\n${url}`)) {
-                              handleRemoveUrl(index)
-                            }
-                          }}
-                          className="flex-shrink-0 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-sm opacity-0 group-hover:opacity-100"
-                          title="Deletar URL"
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    )
-                  })}
-                  {urls.filter((_, idx) => !urlsProcessed.has(idx)).length === 0 && (
-                    <div className="text-center py-8 text-gray-500">
-                      {urls.length === 0 ? 'Nenhuma URL cadastrada.' : 'Todas as URLs foram processadas. Clique em "Reiniciar" para voltar.'}
-                    </div>
-                  )}
-                </div>
               </div>
             )}
 
@@ -3477,7 +3157,7 @@ export default function Home() {
                     )}
                     <button
                       onClick={handleExecute}
-                      disabled={loading || urls.length === 0}
+                      disabled={loading || accounts.filter(acc => !acc.reserved && acc.url && acc.url.trim() !== '').length === 0}
                       className="px-5 py-2.5 bg-gradient-to-r from-purple-50 to-pink-50 text-purple-700 font-medium rounded-lg hover:from-purple-100 hover:to-pink-100 border border-purple-200 hover:border-purple-300 shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

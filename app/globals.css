@@ -213,6 +213,11 @@
   color: #5b21b6;
 }
 
+.badge-orange {
+  background: #fed7aa;
+  color: #9a3412;
+}
+
 /* Títulos */
 .title-main {
   font-size: 2rem;
