@@ -2048,354 +2048,6 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-
-                {/* Modal de Adicionar Conta */}
-                {showAddAccount && (
-                  <div className="modal-overlay">
-                    <div className="modal-content">
-                      <h3 className="title-section mb-6">
-                        {editingAccountIndex !== null ? '✏️ Editar Conta' : '➕ Adicionar Nova Conta'}
-                      </h3>
-                      <div className="space-y-5">
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Email *</label>
-                          <input
-                            type="email"
-                            value={newAccount.email}
-                            onChange={(e) => setNewAccount({ ...newAccount, email: e.target.value })}
-                            className="input-new"
-                            placeholder="exemplo@gmail.com"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Senha *</label>
-                          <input
-                            type="text"
-                            value={newAccount.password}
-                            onChange={(e) => setNewAccount({ ...newAccount, password: e.target.value })}
-                            className="input-new"
-                            placeholder="senha123"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Nome (opcional)</label>
-                          <input
-                            type="text"
-                            value={newAccount.name || ''}
-                            onChange={(e) => setNewAccount({ ...newAccount, name: e.target.value })}
-                            className="input-new"
-                            placeholder="Nome da conta"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">
-                            Link do Kwai {editingAccountIndex === null ? '*' : ''}
-                          </label>
-                          <input
-                            type="text"
-                            value={newAccount.url}
-                            onChange={(e) => setNewAccount({ ...newAccount, url: e.target.value })}
-                            className="input-new font-mono text-sm"
-                            placeholder="https://k.kwai.com/u/@username/..."
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Número (opcional)</label>
-                          <input
-                            type="text"
-                            value={newAccount.number}
-                            onChange={(e) => setNewAccount({ ...newAccount, number: e.target.value })}
-                            className="input-new"
-                            placeholder="Ex: 5511999999999"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Cel (opcional)</label>
-                          <select
-                            value={newAccount.cel}
-                            onChange={(e) => setNewAccount({ ...newAccount, cel: e.target.value })}
-                            className="input-new"
-                          >
-                            <option value="">Sem celular</option>
-                            {Array.from({ length: 500 }, (_, i) => i + 1).map((num) => (
-                              <option key={num} value={`Cel ${num}`}>
-                                Cel {num}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Nota (opcional)</label>
-                          <input
-                            type="text"
-                            value={newAccount.note || ''}
-                            onChange={(e) => setNewAccount({ ...newAccount, note: e.target.value })}
-                            className="input-new"
-                            placeholder="Ex: vendido, reservado, etc."
-                          />
-                        </div>
-                      </div>
-                      <div className="flex gap-3 mt-6">
-                        <button
-                          onClick={async () => {
-                            // Validação rigorosa dos campos obrigatórios
-                            const emailValido = newAccount.email && newAccount.email.trim() !== ''
-                            const senhaValida = newAccount.password && newAccount.password.trim() !== ''
-                            const urlValida = newAccount.url && newAccount.url.trim() !== ''
-                            
-                            if (editingAccountIndex === null) {
-                              // Nova conta - todos os campos obrigatórios (Email, Senha e Link Kwai)
-                              if (!emailValido || !senhaValida || !urlValida) {
-                                const camposFaltando = []
-                                if (!emailValido) camposFaltando.push('Email')
-                                if (!senhaValida) camposFaltando.push('Senha')
-                                if (!urlValida) camposFaltando.push('Link do Kwai')
-                                setError(`❌ Campos obrigatórios não preenchidos: ${camposFaltando.join(', ')}`)
-                                return // NÃO SALVA se faltar algum campo
-                              }
-                            } else {
-                              // Editando conta - Email e Senha são obrigatórios
-                              if (!emailValido || !senhaValida) {
-                                const camposFaltando = []
-                                if (!emailValido) camposFaltando.push('Email')
-                                if (!senhaValida) camposFaltando.push('Senha')
-                                setError(`❌ Campos obrigatórios não preenchidos: ${camposFaltando.join(', ')}`)
-                                return // NÃO SALVA se faltar algum campo
-                              }
-                            }
-                            
-                            // Limpar erro se passou na validação
-                            setError(null)
-                            
-                            // Verificar email duplicado (apenas para novas contas)
-                            if (editingAccountIndex === null) {
-                              const emailToCheck = newAccount.email.trim().toLowerCase()
-                              const existingAccount = accounts.find(acc => 
-                                acc.email.toLowerCase() === emailToCheck
-                              )
-                              
-                              if (existingAccount) {
-                                // Encontrar perfil correspondente para mostrar foto
-                                const profile = profiles.find(p => 
-                                  p.email?.toLowerCase() === emailToCheck
-                                ) || historyProfiles.find(p => 
-                                  p.email?.toLowerCase() === emailToCheck
-                                ) || groupsProfiles.find(p => 
-                                  p.email?.toLowerCase() === emailToCheck
-                                )
-                                
-                                setDuplicateAccount(existingAccount)
-                                setDuplicateAccountProfile(profile || null)
-                                setError('Este email já está cadastrado!')
-                                return // Não salva
-                              }
-                              } else {
-                              // Ao editar, verificar se o email mudou e se já existe em outra conta
-                              const emailToCheck = newAccount.email.trim().toLowerCase()
-                              const currentAccount = accounts[editingAccountIndex]
-                              
-                              // Se o email mudou, verificar se já existe
-                              if (currentAccount.email.toLowerCase() !== emailToCheck) {
-                                const existingAccount = accounts.find((acc, idx) => 
-                                  idx !== editingAccountIndex && acc.email.toLowerCase() === emailToCheck
-                                )
-                                
-                                if (existingAccount) {
-                                  // Encontrar perfil correspondente
-                                  const profile = profiles.find(p => 
-                                    p.email?.toLowerCase() === emailToCheck
-                                  ) || historyProfiles.find(p => 
-                                    p.email?.toLowerCase() === emailToCheck
-                                  ) || groupsProfiles.find(p => 
-                                    p.email?.toLowerCase() === emailToCheck
-                                  )
-                                  
-                                  setDuplicateAccount(existingAccount)
-                                  setDuplicateAccountProfile(profile || null)
-                                  setError('Este email já está cadastrado em outra conta!')
-                                  return // Não salva
-                                }
-                              }
-                            }
-                            
-                            // Limpar dados de duplicata se passou na validação
-                            setDuplicateAccount(null)
-                            setDuplicateAccountProfile(null)
-                            
-                            // Gerar ID automaticamente por incremento numérico
-                            let finalId = ''
-                            if (editingAccountIndex === null) {
-                              // Nova conta - usar o próximo ID sequencial baseado na quantidade de contas
-                              finalId = String(accounts.length + 1)
-                            } else {
-                              // Editando conta - manter o ID existente
-                              finalId = accounts[editingAccountIndex].id || ''
-                            }
-                            
-                            // Processar cel - se vazio, salvar como "n/a"
-                            const celValue = newAccount.cel && newAccount.cel.trim() !== '' ? newAccount.cel : 'n/a'
-                            
-                            // Criar objeto da conta - nome inicia como "n/a" para novas contas
-                            const existingAccount = editingAccountIndex !== null ? accounts[editingAccountIndex] : null
-                            
-                            // Processar URL - usar o valor digitado (já validado acima)
-                            const urlToSave = newAccount.url ? newAccount.url.trim() : (existingAccount?.url || '')
-                            
-                            // Processar name - usar o valor digitado, ou manter existente se vazio ao editar
-                            const nameValue = editingAccountIndex === null 
-                              ? (newAccount.name && newAccount.name.trim() !== '' ? newAccount.name : 'n/a')
-                              : (newAccount.name && newAccount.name.trim() !== '' ? newAccount.name : (existingAccount?.name || 'n/a'))
-                            
-                            // Processar note - manter o valor digitado ou vazio
-                            const noteValue = newAccount.note && newAccount.note.trim() !== '' ? newAccount.note.trim() : ''
-                            
-                            const accountToSave: AccountData = {
-                              ...newAccount,
-                              id: finalId,
-                              email: newAccount.email.trim(),
-                              password: newAccount.password.trim(),
-                              url: urlToSave,
-                              cel: celValue,
-                              name: nameValue,
-                              number: newAccount.number ? newAccount.number.trim() : '',
-                              note: noteValue,
-                              hidden: newAccount.hidden !== undefined ? newAccount.hidden : (existingAccount?.hidden !== undefined ? existingAccount.hidden : false),
-                              reserved: newAccount.reserved !== undefined ? newAccount.reserved : (existingAccount?.reserved !== undefined ? existingAccount.reserved : false)
-                            }
-                            
-                            if (editingAccountIndex !== null) {
-                              // Editar conta existente
-                              const updatedAccounts = [...accounts]
-                              
-                              updatedAccounts[editingAccountIndex] = accountToSave
-                              setAccounts(updatedAccounts)
-                              setEditingAccountIndex(null)
-                              
-                              // Salvar no arquivo
-                              try {
-                                await fetch('/api/accounts', {
-                                  method: 'POST',
-                                  headers: { 'Content-Type': 'application/json' },
-                                  body: JSON.stringify({ accounts: updatedAccounts }),
-                                })
-                              } catch (e) {
-                                console.error('Erro ao salvar conta:', e)
-                              }
-                            } else {
-                              // Nova conta - apenas adicionar à lista de contas
-                              const updatedAccounts = [...accounts, accountToSave]
-                              setAccounts(updatedAccounts)
-                              
-                              // Salvar no arquivo
-                              try {
-                                await fetch('/api/accounts', {
-                                  method: 'POST',
-                                  headers: { 'Content-Type': 'application/json' },
-                                  body: JSON.stringify({ accounts: updatedAccounts }),
-                                })
-                              } catch (e) {
-                                console.error('Erro ao salvar conta:', e)
-                              }
-                            }
-                            
-                            setNewAccount({ id: '', email: '', password: '', url: '', number: '', cel: '', name: '', note: '', hidden: false, reserved: false })
-                            setShowAddAccount(false)
-                            setError(null)
-                            setDuplicateAccount(null)
-                            setDuplicateAccountProfile(null)
-                          }}
-                          className="btn-new btn-success-new flex-1"
-                        >
-                          Salvar
-                        </button>
-                        <button
-                          onClick={() => {
-                            setShowAddAccount(false)
-                            setEditingAccountIndex(null)
-                            setNewAccount({ id: '', email: '', password: '', url: '', number: '', cel: '', name: '', note: '', hidden: false, reserved: false })
-                            setError(null)
-                            setDuplicateAccount(null)
-                            setDuplicateAccountProfile(null)
-                          }}
-                          className="btn-new btn-secondary-new flex-1"
-                        >
-                          Cancelar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Modal de Erro - Email Duplicado */}
-                {duplicateAccount && (
-                  <div className="modal-overlay">
-                    <div className="modal-content max-w-md">
-                      <div className="mb-6">
-                        <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                            <span className="text-2xl">⚠️</span>
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold text-gray-800">Email Já Cadastrado</h3>
-                            <p className="text-sm text-gray-600">Este email já está em uso</p>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                          <div className="flex items-center gap-4">
-                            {/* Foto do Perfil */}
-                            <div className="flex-shrink-0">
-                              {duplicateAccountProfile?.avatar ? (
-                                <img
-                                  src={duplicateAccountProfile.avatar}
-                                  alt={duplicateAccount.name || duplicateAccount.email}
-                                  className="w-16 h-16 rounded-full border-2 border-purple-400 object-cover"
-                                  onError={(e) => {
-                                    e.currentTarget.style.display = 'none'
-                                  }}
-                                />
-                              ) : (
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-purple-400 flex items-center justify-center">
-                                  <span className="text-2xl text-white font-bold">
-                                    {(duplicateAccount.name || duplicateAccount.email || '?')[0]?.toUpperCase()}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                            
-                            {/* Dados da Conta */}
-                            <div className="flex-1 min-w-0">
-                              <div className="font-bold text-gray-800 text-lg mb-1 truncate">
-                                {duplicateAccount.name || 'N/A'}
-                              </div>
-                              <div className="text-sm text-gray-600 truncate mb-2">
-                                {duplicateAccount.email}
-                              </div>
-                              {duplicateAccount.id && (
-                                <div className="text-xs text-gray-500 font-mono">
-                                  ID: {duplicateAccount.id}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-3">
-                        <button
-                          onClick={() => {
-                            setDuplicateAccount(null)
-                            setDuplicateAccountProfile(null)
-                            setError(null)
-                          }}
-                          className="btn-new btn-primary-new flex-1"
-                        >
-                          Entendi
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
                 
                 <div className="overflow-x-auto">
                   <table className="w-full">
@@ -2767,6 +2419,33 @@ export default function Home() {
                                     title="Retirar conta (voltar para contas normais)"
                                   >
                                     ↪️ Retirar
+                                  </button>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      // Encontrar o índice real da conta no array completo
+                                      const realIndex = accounts.findIndex(acc => acc.email === account.email)
+                                      if (realIndex === -1) return
+                                      
+                                      setEditingAccountIndex(realIndex)
+                                      setNewAccount({
+                                        id: account.id || '',
+                                        email: account.email,
+                                        password: account.password,
+                                        url: account.url || '',
+                                        number: account.number || '',
+                                        cel: account.cel || '',
+                                        name: account.name || '',
+                                        note: account.note || '',
+                                        hidden: account.hidden || false,
+                                        reserved: account.reserved || false
+                                      })
+                                      setShowAddAccount(true)
+                                    }}
+                                    className="px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition-colors"
+                                    title="Editar conta reservada"
+                                  >
+                                    ✏️ Editar
                                   </button>
                                   <button
                                     onClick={async (e) => {
