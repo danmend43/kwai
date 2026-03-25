@@ -5033,6 +5033,86 @@ export default function Home() {
           </div>
         </main>
       </div>
+
+      {/* Modal Global Adicionar/Editar Conta */}
+      {showAddAccount && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => { setShowAddAccount(false); setEditingAccountIndex(null) }}>
+          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-900">
+                {editingAccountIndex !== null ? '✏️ Editar Conta' : '➕ Adicionar Conta'}
+              </h3>
+              <button onClick={() => { setShowAddAccount(false); setEditingAccountIndex(null) }} className="text-gray-400 hover:text-gray-600 text-2xl font-bold">×</button>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Email *</label>
+                <input type="email" value={newAccount.email} onChange={(e) => setNewAccount({...newAccount, email: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="email@exemplo.com" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Senha *</label>
+                <input type="text" value={newAccount.password} onChange={(e) => setNewAccount({...newAccount, password: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="senha" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">URL do Perfil</label>
+                <input type="text" value={newAccount.url || ''} onChange={(e) => setNewAccount({...newAccount, url: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://k.kwai.com/u/@username" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Nome</label>
+                <input type="text" value={newAccount.name || ''} onChange={(e) => setNewAccount({...newAccount, name: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome da conta" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Número</label>
+                <input type="text" value={newAccount.number || ''} onChange={(e) => setNewAccount({...newAccount, number: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Número de telefone" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Cel</label>
+                <input type="text" value={newAccount.cel || ''} onChange={(e) => setNewAccount({...newAccount, cel: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ex: Cel 1" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Nota</label>
+                <input type="text" value={newAccount.note || ''} onChange={(e) => setNewAccount({...newAccount, note: e.target.value})} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Observações" />
+              </div>
+              <div className="flex items-center gap-2">
+                <input type="checkbox" id="hidden-check-global" checked={newAccount.hidden || false} onChange={(e) => setNewAccount({...newAccount, hidden: e.target.checked})} className="w-4 h-4" />
+                <label htmlFor="hidden-check-global" className="text-sm font-semibold text-gray-700">Ocultar conta</label>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={async () => {
+                  if (!newAccount.email || !newAccount.password) {
+                    alert('Email e senha são obrigatórios!')
+                    return
+                  }
+                  let updatedAccounts = [...accounts]
+                  if (editingAccountIndex !== null) {
+                    updatedAccounts[editingAccountIndex] = { ...updatedAccounts[editingAccountIndex], ...newAccount }
+                  } else {
+                    const newId = String(accounts.length + 1)
+                    updatedAccounts.push({ ...newAccount, id: newId, reserved: false })
+                  }
+                  setAccounts(updatedAccounts)
+                  try {
+                    await fetch('/api/accounts', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ accounts: updatedAccounts }),
+                    })
+                  } catch (e) { console.error('Erro ao salvar conta:', e) }
+                  setShowAddAccount(false)
+                  setEditingAccountIndex(null)
+                  setNewAccount({ id: '', email: '', password: '', url: '', number: '', cel: '', name: '', note: '', hidden: false, reserved: false })
+                }}
+                className="flex-1 btn-new btn-primary-new"
+              >
+                {editingAccountIndex !== null ? '💾 Salvar' : '➕ Adicionar'}
+              </button>
+              <button onClick={() => { setShowAddAccount(false); setEditingAccountIndex(null) }} className="flex-1 btn-new btn-secondary-new">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
