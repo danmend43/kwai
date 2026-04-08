@@ -1,6 +1,42 @@
 {
   "history": [
     {
+      "date": "2026-04-08",
+      "startTime": "2026-04-08T04:01:33.073Z",
+      "endTime": "2026-04-08T05:14:55.136Z",
+      "totalAccounts": 34,
+      "groups": [
+        "custom-20k"
+      ]
+    },
+    {
+      "date": "2026-04-06",
+      "startTime": "2026-04-06T03:01:42.897Z",
+      "endTime": "2026-04-06T05:28:23.320Z",
+      "totalAccounts": 34,
+      "groups": [
+        "custom-20k"
+      ]
+    },
+    {
+      "date": "2026-04-04",
+      "startTime": "2026-04-04T11:04:58.250Z",
+      "endTime": "2026-04-04T12:24:05.992Z",
+      "totalAccounts": 34,
+      "groups": [
+        "custom-20k"
+      ]
+    },
+    {
+      "date": "2026-04-03",
+      "startTime": "2026-04-03T01:30:21.288Z",
+      "endTime": "2026-04-03T09:52:31.915Z",
+      "totalAccounts": 34,
+      "groups": [
+        "custom-20k"
+      ]
+    },
+    {
       "date": "2026-03-31",
       "startTime": "2026-03-31T05:34:02.209Z",
       "endTime": "2026-03-31T06:21:38.473Z",
