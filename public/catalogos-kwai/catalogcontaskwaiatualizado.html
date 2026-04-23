@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogos</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      padding: 3rem 2rem;
+      min-height: 100vh;
+      color: #0a0a0a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #0a0a0a;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      font-size: 0.875rem;
+      color: #737373;
+    }
+    .catalogs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .catalog-card {
+      background: #ffffff;
+      border: 2px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .catalog-card:hover {
+      border-color: #0a0a0a;
+      transform: translateY(-2px);
+    }
+    .catalog-number {
+      font-size: 2rem;
+      color: #0a0a0a;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .catalog-info {
+      font-size: 0.875rem;
+      color: #737373;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Catálogos</h1>
+      <p>Selecione um catálogo para visualizar</p>
+    </div>
+    <div class="catalogs-grid">
+      
+      <a href="f84oa6el.html" class="catalog-card">
+        <div class="catalog-number">20K</div>
+        <div class="catalog-info">10 contas</div>
+      </a>
+    
+    </div>
+  </div>
+</body>
+</html>

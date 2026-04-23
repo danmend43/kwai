@@ -2294,7 +2294,70 @@
         }
       },
       "calendarMarked": true
+    },
+    "2026-04-11": {
+      "groups": {
+        "custom-20k": {
+          "selected": [
+            "abdurfuhrmann@gmail.com",
+            "brookmangiselle@gmail.com",
+            "carriemurnane881@gmail.com",
+            "mn1213294@gmail.com",
+            "debellamaranta@gmail.com",
+            "transitolugert@gmail.com",
+            "danaegalabeas@gmail.com",
+            "parteniarakoczy@gmail.com",
+            "carstenseneneyen@gmail.com",
+            "beamonthierry@gmail.com",
+            "lynehymon@gmail.com",
+            "gamalharo46@gmail.com",
+            "haywardbelva@gmail.com",
+            "analisajaurigue@gmail.com",
+            "odaboutot@gmail.com",
+            "631843406",
+            "855830098",
+            "965399821",
+            "922387564",
+            "838618807",
+            "970133729",
+            "917157204",
+            "646682919",
+            "966494908",
+            "995348340",
+            "973457937",
+            "969369318",
+            "640281621",
+            "826642272",
+            "948073278",
+            "960250814",
+            "646651895"
+          ],
+          "startTime": "2026-04-11T19:05:26.103Z",
+          "endTime": "2026-04-11T19:08:36.605Z"
+        },
+        "4k": {
+          "selected": [
+            "mugioneat@via.tokyo.jp",
+            "hitputrap@via.tokyo.jp",
+            "myat908@via.tokyo.jp"
+          ],
+          "startTime": "2026-04-11T23:46:49.919Z",
+          "endTime": "2026-04-12T00:44:00.017Z"
+        }
+      },
+      "calendarMarked": true
+    },
+    "2026-04-12": {
+      "groups": {
+        "4k": {
+          "selected": [
+            "mugioneat@via.tokyo.jp"
+          ],
+          "startTime": "2026-04-12T01:16:35.207Z"
+        }
+      },
+      "calendarMarked": false
     }
   },
-  "lastUpdated": "2026-04-08T05:14:55.312Z"
+  "lastUpdated": "2026-04-12T01:16:35.291Z"
 }

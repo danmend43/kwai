@@ -1663,6 +1663,15 @@ export default function Home() {
                 <span>{tab.label}</span>
               </button>
             ))}
+            <a
+              href="/catalogos-kwai/catalogcontaskwaiatualizado.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sidebar-item-new"
+            >
+              <span className="text-lg">📋</span>
+              <span>New Catalog</span>
+            </a>
           </nav>
         </aside>
 
@@ -1716,6 +1725,16 @@ export default function Home() {
                 <span>{tab.label}</span>
               </button>
             ))}
+            <a
+              href="/catalogos-kwai/catalogcontaskwaiatualizado.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sidebar-item-new w-full"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span className="text-lg">📋</span>
+              <span>New Catalog</span>
+            </a>
           </nav>
         </aside>
 
