@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo 14K</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      padding: 2rem;
+      min-height: 100vh;
+      color: #0a0a0a;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .group-section {
+      background: #f7f7f7;
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid #e5e5e5;
+      margin-bottom: 2rem;
+    }
+    .group-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .group-header h2 {
+      font-size: 2rem;
+      color: #0a0a0a;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .group-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat-box .stat-label {
+      display: block;
+      font-size: 0.75rem;
+      color: #737373;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+    .stat-box .stat-value {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0a0a0a;
+    }
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .account-card {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .account-card:hover {
+      border-color: #d4d4d4;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+    .card-title {
+      flex: 1;
+      min-width: 0;
+    }
+    .card-title h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: #0a0a0a;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .kwai-id {
+      font-size: 0.875rem;
+      color: #737373;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-stats {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      background: #f7f7f7;
+      border-radius: 12px;
+      gap: 0.25rem;
+    }
+    .followers-count {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0a0a0a;
+    }
+    .followers-label {
+      font-size: 0.75rem;
+      color: #737373;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .profile-link {
+      display: block;
+      width: 100%;
+      padding: 0.875rem;
+      background: #0a0a0a;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .profile-link:hover {
+      background: #262626;
+      transform: translateY(-1px);
+    }
+    .copy-button {
+      display: block;
+      width: 100%;
+      padding: 0.875rem;
+      background: #f7f7f7;
+      color: #0a0a0a;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .copy-button:hover {
+      background: #e5e5e5;
+      border-color: #d4d4d4;
+    }
+    .copy-button:active {
+      transform: scale(0.98);
+    }
+    .toast {
+      position: fixed;
+      top: 2rem;
+      right: -300px;
+      background: #0a0a0a;
+      color: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+    .toast.show {
+      right: 2rem;
+    }
+  </style>
+  <script>
+    let selectedButton = null;
+    
+    function showToast(message) {
+      // Remover toast anterior se existir
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+      
+      // Criar novo toast
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      // Animar entrada
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+      
+      // Remover após 2 segundos
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 2000);
+    }
+    
+    function copyAccountData(name, kwaiId) {
+      const text = name + '\n@' + kwaiId;
+      const button = event.target;
+      
+      // Desmarcar botão anterior
+      if (selectedButton && selectedButton !== button) {
+        selectedButton.textContent = 'Copiar Dados';
+        selectedButton.style.background = '#f7f7f7';
+        selectedButton.style.color = '#0a0a0a';
+        selectedButton.style.borderColor = '#e5e5e5';
+      }
+      
+      // Marcar botão atual em verde
+      button.textContent = '✓ Selecionado';
+      button.style.background = '#22c55e';
+      button.style.color = '#ffffff';
+      button.style.borderColor = '#22c55e';
+      selectedButton = button;
+      
+      // Mostrar notificação
+      showToast('✓ Dados copiados!');
+      
+      // Copiar para clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+    
+    function fallbackCopy(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        // Falha silenciosa
+      }
+      document.body.removeChild(textarea);
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    
+        <div class="group-section">
+          <div class="group-header">
+            <h2>14K</h2>
+            <div class="group-stats">
+              <div class="stat-box">
+                <span class="stat-label">Contas</span>
+                <span class="stat-value">69</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">Total Seguidores</span>
+                <span class="stat-value">1.0M</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="accounts-grid">
+            
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719064221_BMTUwMDAxNjIyOTQ4MTY5_s.jpg?ocid=20201" alt="dinah war" class="avatar">
+            <div class="card-title">
+              <h3>dinah war</h3>
+              <p class="kwai-id">@dinahwardrop</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@dinahwardrop" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('dinah war', 'dinahwardrop')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719071922_BMTUwMDAxNjIyOTQ0NDk4_t.jpg?ocid=20201" alt="delmar jentzsch" class="avatar">
+            <div class="card-title">
+              <h3>delmar jentzsch</h3>
+              <p class="kwai-id">@delmarjentzsch</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@delmarjentzsch" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('delmar jentzsch', 'delmarjentzsch')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719064432_BMTUwMDAxNjIyOTQ4ODE1_s.jpg?ocid=20201" alt="caren calendine" class="avatar">
+            <div class="card-title">
+              <h3>caren calendine</h3>
+              <p class="kwai-id">@carencalendine</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@carencalendine" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('caren calendine', 'carencalendine')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719065109_BMTUwMDAxNjIyOTUyMTg2_s.jpg?ocid=20201" alt="brandy" class="avatar">
+            <div class="card-title">
+              <h3>brandy</h3>
+              <p class="kwai-id">@brandy698</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@brandy698" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('brandy', 'brandy698')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719070702_BMTUwMDAxNjIyOTQ1OTU3_s.jpg?ocid=20201" alt="latrice" class="avatar">
+            <div class="card-title">
+              <h3>latrice</h3>
+              <p class="kwai-id">@latrice277</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@latrice277" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('latrice', 'latrice277')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240608074215_BMTUwMDAxNjA5MDI3MDA4_s.jpg?ocid=20201" alt="Historia Reiss" class="avatar">
+            <div class="card-title">
+              <h3>Historia Reiss</h3>
+              <p class="kwai-id">@nsaik161</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@nsaik161" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Historia Reiss', 'nsaik161')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240608075316_BMTUwMDAxNjA5MDMyNjk4_t.jpg?ocid=20201" alt="Shino Asada" class="avatar">
+            <div class="card-title">
+              <h3>Shino Asada</h3>
+              <p class="kwai-id">@zqnyi716</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@zqnyi716" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Shino Asada', 'zqnyi716')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240608080604_BMTUwMDAxNjA5MzA5MTE3_s.jpg?ocid=20201" alt="Yukino Yukinoshita" class="avatar">
+            <div class="card-title">
+              <h3>Yukino Yukinoshita</h3>
+              <p class="kwai-id">@dfbtf937</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.3K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@dfbtf937" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Yukino Yukinoshita', 'dfbtf937')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240608082853_BMTUwMDAxNjA4MzEyMzg4_s.jpg?ocid=20201" alt="Jibril" class="avatar">
+            <div class="card-title">
+              <h3>Jibril</h3>
+              <p class="kwai-id">@zheku435</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@zheku435" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Jibril', 'zheku435')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609052831_BMTUwMDAxNjA5OTA3MDA1_s.jpg?ocid=20201" alt="Ryoko Asakura" class="avatar">
+            <div class="card-title">
+              <h3>Ryoko Asakura</h3>
+              <p class="kwai-id">@cxvgr786</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@cxvgr786" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Ryoko Asakura', 'cxvgr786')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609053124_BMTUwMDAxNjA5OTA4MDA2_s.jpg" alt="Kanade Tachibana" class="avatar">
+            <div class="card-title">
+              <h3>Kanade Tachibana</h3>
+              <p class="kwai-id">@abryw699</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@abryw699" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Kanade Tachibana', 'abryw699')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708052907_BMTUwMDAxNjA4MjkxNDU3_s.jpg?ocid=20201" alt="debora" class="avatar">
+            <div class="card-title">
+              <h3>debora</h3>
+              <p class="kwai-id">@ivzas792</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.4K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ivzas792" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('debora', 'ivzas792')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708053046_BMTUwMDAxNjEwMjAxMDUy_s.jpg?ocid=20201" alt="sdcmk515" class="avatar">
+            <div class="card-title">
+              <h3>sdcmk515</h3>
+              <p class="kwai-id">@sdcmk515</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@sdcmk515" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('sdcmk515', 'sdcmk515')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708053524_BMTUwMDAxNjEwMjc3MDEz_s.jpg?ocid=20201" alt="pimrs211" class="avatar">
+            <div class="card-title">
+              <h3>pimrs211</h3>
+              <p class="kwai-id">@yjmrs211</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.3K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@yjmrs211" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('pimrs211', 'yjmrs211')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708053657_BMTUwMDAxNjEwMjc4MTQ0_s.jpg?ocid=20201" alt="jowuj352" class="avatar">
+            <div class="card-title">
+              <h3>jowuj352</h3>
+              <p class="kwai-id">@sdwuj352</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@sdwuj352" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('jowuj352', 'sdwuj352')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708055010_BMTUwMDAxNjEwMjc4ODY0_s.jpg?ocid=20201" alt="jyygum939" class="avatar">
+            <div class="card-title">
+              <h3>jyygum939</h3>
+              <p class="kwai-id">@iygum939</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@iygum939" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('jyygum939', 'iygum939')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240708055118_BMTUwMDAxNjEwMjc2Mjgy_s.jpg?ocid=20201" alt="ppzmw216" class="avatar">
+            <div class="card-title">
+              <h3>ppzmw216</h3>
+              <p class="kwai-id">@ppzmw216</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ppzmw216" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('ppzmw216', 'ppzmw216')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240604015804_BMTUwMDAxNjA4MjA3MjY5_s.jpg?ocid=20201" alt="iago" class="avatar">
+            <div class="card-title">
+              <h3>iago</h3>
+              <p class="kwai-id">@ttvcp744</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ttvcp744" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('iago', 'ttvcp744')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20260119150826_BMTUwMDAxNjA5MDAyODgz_s.jpg?ocid=20201" alt="Nezuko Kamado" class="avatar">
+            <div class="card-title">
+              <h3>Nezuko Kamado</h3>
+              <p class="kwai-id">@bwysm356</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@bwysm356" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Nezuko Kamado', 'bwysm356')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240607100945_BMTUwMDAxNjA5MDAxMzY5_s.jpg?ocid=20201" alt="Grell Sutcliff" class="avatar">
+            <div class="card-title">
+              <h3>Grell Sutcliff</h3>
+              <p class="kwai-id">@nxtni871</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@nxtni871" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Grell Sutcliff', 'nxtni871')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240630204103_BMTUwMDAxNjE2NzcxMDQw_s.jpg?ocid=20201" alt="julinha" class="avatar">
+            <div class="card-title">
+              <h3>julinha</h3>
+              <p class="kwai-id">@ghpnw736</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ghpnw736" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('julinha', 'ghpnw736')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240605060515_BMTUwMDAxNjA4NjcwNTkw_t.jpg?ocid=20201" alt="Asuka Langley" class="avatar">
+            <div class="card-title">
+              <h3>Asuka Langley</h3>
+              <p class="kwai-id">@cajaq713</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@cajaq713" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Asuka Langley', 'cajaq713')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240605061128_BMTUwMDAxNjA4NjczNTQ1_s.jpg?ocid=20201" alt="Levi Ackerman" class="avatar">
+            <div class="card-title">
+              <h3>Levi Ackerman</h3>
+              <p class="kwai-id">@enocu415</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@enocu415" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Levi Ackerman', 'enocu415')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240606161345_BMTUwMDAxNjA5MzU2MDc2_s.jpg" alt="Alphonse Elric" class="avatar">
+            <div class="card-title">
+              <h3>Alphonse Elric</h3>
+              <p class="kwai-id">@aaogv136</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@aaogv136" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Alphonse Elric', 'aaogv136')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240605062451_BMTUwMDAxNjA4NjgyNjA4_s.jpg?ocid=20201" alt="Riza Hawkeye" class="avatar">
+            <div class="card-title">
+              <h3>Riza Hawkeye</h3>
+              <p class="kwai-id">@oomku741</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@oomku741" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Riza Hawkeye', 'oomku741')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240605072855_BMTUwMDAxNjA4NzAyMzM4_s.jpg?ocid=20201" alt="Mayuri Shiina" class="avatar">
+            <div class="card-title">
+              <h3>Mayuri Shiina</h3>
+              <p class="kwai-id">@oozbn651</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@oozbn651" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Mayuri Shiina', 'oozbn651')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-sgp-pic.kwai.net/bs2/overseaHead/20240607093225_BMTUwMDAxNjA4OTkwNTQw_s.jpg?bp=50010" alt="Roronoa Zoro" class="avatar">
+            <div class="card-title">
+              <h3>Roronoa Zoro</h3>
+              <p class="kwai-id">@xrcgc640</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@xrcgc640" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Roronoa Zoro', 'xrcgc640')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240607093621_BMTUwMDAxNjA4OTkyMTI1_s.jpg?ocid=20201" alt="Sanji" class="avatar">
+            <div class="card-title">
+              <h3>Sanji</h3>
+              <p class="kwai-id">@fdjef672</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@fdjef672" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Sanji', 'fdjef672')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240607095330_BMTUwMDAxNjA4OTk1ODEw_s.jpg?ocid=20201" alt="Kaito Kuroba" class="avatar">
+            <div class="card-title">
+              <h3>Kaito Kuroba</h3>
+              <p class="kwai-id">@rpbbw987</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@rpbbw987" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Kaito Kuroba', 'rpbbw987')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609095414_BMTUwMDAxNjA5OTQ4NTM1_s.jpg" alt="Marika Tachibana" class="avatar">
+            <div class="card-title">
+              <h3>Marika Tachibana</h3>
+              <p class="kwai-id">@itddq100</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@itddq100" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Marika Tachibana', 'itddq100')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609100904_BMTUwMDAxNjA5OTUyMTk4_t.jpg?ocid=20201" alt="Chie Satonaka" class="avatar">
+            <div class="card-title">
+              <h3>Chie Satonaka</h3>
+              <p class="kwai-id">@urnqb788</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.4K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@urnqb788" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Chie Satonaka', 'urnqb788')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609101853_BMTUwMDAxNjA5OTUzNzQ5_s.jpg?ocid=20201" alt="Teddie" class="avatar">
+            <div class="card-title">
+              <h3>Teddie</h3>
+              <p class="kwai-id">@fnaix331</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@fnaix331" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Teddie', 'fnaix331')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609102007_BMTUwMDAxNjA5OTU0MTMx_s.jpg?ocid=20201" alt="Makoto Naegi" class="avatar">
+            <div class="card-title">
+              <h3>Makoto Naegi</h3>
+              <p class="kwai-id">@jldem522</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@jldem522" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Makoto Naegi', 'jldem522')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609102235_BMTUwMDAxNjA5OTU1MTg4_s.jpg?ocid=20201" alt="Byakuya Togami" class="avatar">
+            <div class="card-title">
+              <h3>Byakuya Togami</h3>
+              <p class="kwai-id">@xqaer493</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@xqaer493" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Byakuya Togami', 'xqaer493')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609102806_BMTUwMDAxNjA4MjkzNDUw_s.jpg?ocid=20201" alt="Chisa Yukizome" class="avatar">
+            <div class="card-title">
+              <h3>Chisa Yukizome</h3>
+              <p class="kwai-id">@elqxa479</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@elqxa479" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Chisa Yukizome', 'elqxa479')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703212909_BMTUwMDAxNjE3MDk3MDgx_s.jpg?ocid=20201" alt="jolvh" class="avatar">
+            <div class="card-title">
+              <h3>jolvh</h3>
+              <p class="kwai-id">@jolvh120</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.3K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@jolvh120" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('jolvh', 'jolvh120')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703221335_BMTUwMDAxNjE3MTEzNzE4_s.jpg?ocid=20201" alt="teiaf051" class="avatar">
+            <div class="card-title">
+              <h3>teiaf051</h3>
+              <p class="kwai-id">@teiaf051</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@teiaf051" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('teiaf051', 'teiaf051')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703221518_BMTUwMDAxNjE3MTE1NTc1_s.jpg?ocid=20201" alt="spoxo837" class="avatar">
+            <div class="card-title">
+              <h3>spoxo837</h3>
+              <p class="kwai-id">@spoxo837</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.4K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@spoxo837" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('spoxo837', 'spoxo837')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703222751_BMTUwMDAxNTgzMjA4ODIz_s.jpg?ocid=20201" alt="Jaque Reyya" class="avatar">
+            <div class="card-title">
+              <h3>Jaque Reyya</h3>
+              <p class="kwai-id">@jaquereyya</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@jaquereyya" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Jaque Reyya', 'jaquereyya')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703222957_BMTUwMDAxNjE3NzcyNDk3_t.jpg?ocid=20201" alt="roger" class="avatar">
+            <div class="card-title">
+              <h3>roger</h3>
+              <p class="kwai-id">@rgrll556</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@rgrll556" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('roger', 'rgrll556')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703204641_BMTUwMDAxNjE2NzU0MjM4_s.jpg?ocid=20201" alt="tsubase" class="avatar">
+            <div class="card-title">
+              <h3>tsubase</h3>
+              <p class="kwai-id">@ytbsa003</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.1K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ytbsa003" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('tsubase', 'ytbsa003')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703210134_BMTUwMDAxNjE2NzYyMTk5_t.jpg?ocid=20201" alt="weslwy" class="avatar">
+            <div class="card-title">
+              <h3>weslwy</h3>
+              <p class="kwai-id">@ivqku597</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ivqku597" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('weslwy', 'ivqku597')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703210353_BMTUwMDAxNjE2NzY0MDE0_s.jpg?ocid=20201" alt="luhec748" class="avatar">
+            <div class="card-title">
+              <h3>luhec748</h3>
+              <p class="kwai-id">@cuhec748</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.2K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@cuhec748" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('luhec748', 'cuhec748')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611072105_BMTUwMDAxNjEwNTMzNTc3_s.jpg?ocid=20201" alt="endrick" class="avatar">
+            <div class="card-title">
+              <h3>endrick</h3>
+              <p class="kwai-id">@blyoi668</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@blyoi668" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('endrick', 'blyoi668')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611072214_BMTUwMDAxNjEwNTMzOTY0_s.jpg?ocid=20201" alt="zara" class="avatar">
+            <div class="card-title">
+              <h3>zara</h3>
+              <p class="kwai-id">@zaorf862</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@zaorf862" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('zara', 'zaorf862')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611072522_BMTUwMDAxNjEwNTM1OTM1_s.jpg?ocid=20201" alt="toyys3" class="avatar">
+            <div class="card-title">
+              <h3>toyys3</h3>
+              <p class="kwai-id">@iotsv143</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@iotsv143" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('toyys3', 'iotsv143')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611072640_BMTUwMDAxNjEwNTM2NjY4_s.jpg?ocid=20201" alt="juy76" class="avatar">
+            <div class="card-title">
+              <h3>juy76</h3>
+              <p class="kwai-id">@aelhq129</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.4K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@aelhq129" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('juy76', 'aelhq129')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611073336_BMTUwMDAxNjEwNTM5MTY3_s.jpg?ocid=20201" alt="rogz4" class="avatar">
+            <div class="card-title">
+              <h3>rogz4</h3>
+              <p class="kwai-id">@rztog912</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@rztog912" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('rogz4', 'rztog912')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609061634_BMTUwMDAxNjA5OTIyMzE2_s.jpg?ocid=20201" alt="Kyoko Kirigiri" class="avatar">
+            <div class="card-title">
+              <h3>Kyoko Kirigiri</h3>
+              <p class="kwai-id">@ivewx643</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ivewx643" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Kyoko Kirigiri', 'ivewx643')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609062048_BMTUwMDAxNjA5OTI0Mjk1_t.jpg?ocid=20201" alt="Hajime Hinata" class="avatar">
+            <div class="card-title">
+              <h3>Hajime Hinata</h3>
+              <p class="kwai-id">@lqwdw201</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.3K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@lqwdw201" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Hajime Hinata', 'lqwdw201')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609064614_BMTUwMDAxNjA5OTI1MzU5_s.jpg?ocid=20201" alt="Satoru Gojo" class="avatar">
+            <div class="card-title">
+              <h3>Satoru Gojo</h3>
+              <p class="kwai-id">@tixmu967</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@tixmu967" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Satoru Gojo', 'tixmu967')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609064931_BMTUwMDAxNjA5OTI2NTg4_s.jpg?ocid=20201" alt="Nobara Kugisaki" class="avatar">
+            <div class="card-title">
+              <h3>Nobara Kugisaki</h3>
+              <p class="kwai-id">@kzvsc622</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@kzvsc622" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Nobara Kugisaki', 'kzvsc622')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609070233_BMTUwMDAxNjA5OTMwODM0_s.jpg?ocid=20201" alt="Kaede Azusagawa" class="avatar">
+            <div class="card-title">
+              <h3>Kaede Azusagawa</h3>
+              <p class="kwai-id">@raxeq269</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.3K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@raxeq269" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Kaede Azusagawa', 'raxeq269')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240609070126_BMTUwMDAxNjA5OTMwNDY2_s.jpg?ocid=20201" alt="Nodoka Toyohama" class="avatar">
+            <div class="card-title">
+              <h3>Nodoka Toyohama</h3>
+              <p class="kwai-id">@pivfb748</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.7K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@pivfb748" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Nodoka Toyohama', 'pivfb748')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611062504_BMTUwMDAxNjEwMjc1NjE1_s.jpg?ocid=20201" alt="Alucard" class="avatar">
+            <div class="card-title">
+              <h3>Alucard</h3>
+              <p class="kwai-id">@wzoxa091</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@wzoxa091" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Alucard', 'wzoxa091')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611062613_BMTUwMDAxNjEwNTAwODc2_s.jpg" alt="Seras Victoria" class="avatar">
+            <div class="card-title">
+              <h3>Seras Victoria</h3>
+              <p class="kwai-id">@ahezj420</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ahezj420" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Seras Victoria', 'ahezj420')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611063036_BMTUwMDAxNjEwNTAzNzQz_s.jpg?ocid=20201" alt="Lina Inverse" class="avatar">
+            <div class="card-title">
+              <h3>Lina Inverse</h3>
+              <p class="kwai-id">@ueqtf072</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ueqtf072" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('Lina Inverse', 'ueqtf072')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611064631_BMTUwMDAxNjEwNTEwMTU4_s.jpg?ocid=20201" alt="kzeiu" class="avatar">
+            <div class="card-title">
+              <h3>kzeiu</h3>
+              <p class="kwai-id">@kzeiu620</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@kzeiu620" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('kzeiu', 'kzeiu620')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611064749_BMTUwMDAxNjEwNTEwOTQy_s.jpg?ocid=20201" alt="bxazb" class="avatar">
+            <div class="card-title">
+              <h3>bxazb</h3>
+              <p class="kwai-id">@bxazb837</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@bxazb837" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('bxazb', 'bxazb837')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611073454_BMTUwMDAxNjEwNTM5NTEx_s.jpg?ocid=20201" alt="owie" class="avatar">
+            <div class="card-title">
+              <h3>owie</h3>
+              <p class="kwai-id">@ozoxw578</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@ozoxw578" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('owie', 'ozoxw578')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611065349_BMTUwMDAxNjEwNTE0Mzgz_s.jpg?ocid=20201" alt="llnvj993" class="avatar">
+            <div class="card-title">
+              <h3>llnvj993</h3>
+              <p class="kwai-id">@llnvj993</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.9K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@llnvj993" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('llnvj993', 'llnvj993')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611065442_BMTUwMDAxNjEwNTE0Nzc5_s.jpg?ocid=20201" alt="abaow573" class="avatar">
+            <div class="card-title">
+              <h3>abaow573</h3>
+              <p class="kwai-id">@abaow573</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@abaow573" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('abaow573', 'abaow573')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611065803_BMTUwMDAxNjEwNTE1NDQz_s.jpg?ocid=20201" alt="thquz634" class="avatar">
+            <div class="card-title">
+              <h3>thquz634</h3>
+              <p class="kwai-id">@thquz634</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.6K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@thquz634" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('thquz634', 'thquz634')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611070945_BMTUwMDAxNjEwNTI5NjY3_s.jpg?ocid=20201" alt="haivj141" class="avatar">
+            <div class="card-title">
+              <h3>haivj141</h3>
+              <p class="kwai-id">@haivj141</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@haivj141" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('haivj141', 'haivj141')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611071544_BMTUwMDAxNjEwNTMxOTE2_s.jpg?ocid=20201" alt="huhuk139" class="avatar">
+            <div class="card-title">
+              <h3>huhuk139</h3>
+              <p class="kwai-id">@huhuk139</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@huhuk139" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('huhuk139', 'huhuk139')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240703225240_BMTUwMDAxNjE3Nzg0MTE3_s.jpg?ocid=20201" alt="yevfu430" class="avatar">
+            <div class="card-title">
+              <h3>yevfu430</h3>
+              <p class="kwai-id">@yevfu430</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.2K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@yevfu430" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('yevfu430', 'yevfu430')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240611073725_BMTUwMDAxNjEwNTQwNDU1_s.jpg?ocid=20201" alt="hlehc506" class="avatar">
+            <div class="card-title">
+              <h3>hlehc506</h3>
+              <p class="kwai-id">@hlehc506</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.5K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@hlehc506" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('hlehc506', 'hlehc506')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240630202028_BMTUwMDAxNjEwMjcwNzA1_s.jpg?ocid=20201" alt="minika" class="avatar">
+            <div class="card-title">
+              <h3>minika</h3>
+              <p class="kwai-id">@vgust191</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14.8K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@vgust191" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('minika', 'vgust191')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+        <div class="account-card">
+          <div class="card-header">
+            <img src="http://ak-br-pic.kwai.net/bs2/overseaHead/20240719065650_BMTUwMDAxNjIyOTQ2NDAx_s.jpg" alt="adaline stan" class="avatar">
+            <div class="card-title">
+              <h3>adaline stan</h3>
+              <p class="kwai-id">@adalinestandah</p>
+            </div>
+          </div>
+          <div class="card-stats">
+            <span class="followers-count">14K</span>
+            <span class="followers-label">seguidores</span>
+          </div>
+          <a href="https://www.kwai.com/@adalinestandah" target="_blank" class="profile-link">
+            Ver Perfil
+          </a>
+          <button onclick="copyAccountData('adaline stan', 'adalinestandah')" class="copy-button">
+            Copiar Dados
+          </button>
+        </div>
+      
+          </div>
+        </div>
+      
+  </div>
+</body>
+</html>
